@@ -39,7 +39,7 @@ public class User {
     @Embedded
     private Filter filter;
 
-
+    private String bio;
 
     @OneToMany(mappedBy = "user")
     private List<Photo> photos = new ArrayList<>();

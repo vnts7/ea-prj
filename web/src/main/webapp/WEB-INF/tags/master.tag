@@ -8,6 +8,7 @@
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
     <title>Minder</title>
     <link rel="stylesheet" type="text/css" href="/res/bootstrap.min.css"/>
+    <link rel="stylesheet" type="text/css" href="/res/css/fa-all.css"/>
     <link rel="stylesheet" type="text/css" href="/res/style.css"/>
 </head>
 <body>
