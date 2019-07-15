@@ -13,16 +13,16 @@ import java.io.Serializable;
 @AllArgsConstructor
 @Entity
 public class UserLike implements Serializable {
-//    @Id
-//    @GeneratedValue(strategy = GenerationType.IDENTITY)
-//    private Long id;
-
     @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Long id;
+
+//    @Id
     @ManyToOne
     @JoinColumn(name = "liker_id")
     private User liker;
 
-    @Id
+//    @Id
     @ManyToOne
     @JoinColumn(name = "likee_id")
     private User likee;

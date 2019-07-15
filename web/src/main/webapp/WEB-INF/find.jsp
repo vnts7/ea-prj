@@ -5,6 +5,6 @@
 
 <t:master>
     <jsp:body>
-        <h1>Index page</h1>
+        <h1>Find page</h1>
     </jsp:body>
 </t:master>
