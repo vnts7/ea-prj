@@ -21,8 +21,7 @@ public class User {
     private String name;
 
     @NotBlank
-    @Email
-    private String email;
+    private String username;
 
     @NotBlank
     private String password;
@@ -55,9 +54,9 @@ public class User {
     public User() {
     }
 
-    public User(@NotBlank String name, @NotBlank @Email String email, @NotBlank String password, Point location, @Past @NotNull LocalDate dateOfBirth, @NotNull Integer gender, @NotNull Integer interestedIn) {
+    public User(@NotBlank String name, @NotBlank String username, @NotBlank String password, Point location, @Past @NotNull LocalDate dateOfBirth, @NotNull Integer gender, @NotNull Integer interestedIn) {
         this.name = name;
-        this.email = email;
+        this.username = username;
         this.password = password;
         this.location = location;
         this.dateOfBirth = dateOfBirth;
