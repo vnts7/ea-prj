@@ -1,21 +1,28 @@
 package com.tdc.domain;
 
+import lombok.AllArgsConstructor;
+import lombok.Data;
+import lombok.NoArgsConstructor;
+
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
 import java.io.Serializable;
 
+@Data
+@NoArgsConstructor
+@AllArgsConstructor
 @Entity
 public class UserLike implements Serializable {
-//    @Id
-//    @GeneratedValue(strategy = GenerationType.IDENTITY)
-//    private Long id;
-
     @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Long id;
+
+//    @Id
     @ManyToOne
     @JoinColumn(name = "liker_id")
     private User liker;
 
-    @Id
+//    @Id
     @ManyToOne
     @JoinColumn(name = "likee_id")
     private User likee;
