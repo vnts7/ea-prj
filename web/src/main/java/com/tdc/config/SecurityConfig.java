@@ -31,7 +31,8 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
     protected void configure(AuthenticationManagerBuilder auth) throws Exception {
         auth.inMemoryAuthentication()
                 .withUser("admin").password("{noop}admin").roles("USER","ADMIN").and()
-                .withUser("user").password("{noop}user").roles("USER");
+                .withUser("hm").password("{noop}hm").roles("USER").and()
+                .withUser("tb").password("{noop}tb").roles("USER");
         //todo: change to jdbcAuthentication after finish register
 //        auth.jdbcAuthentication()
 //                .usersByUsernameQuery("select username, password, 1 from user where username=?")
@@ -49,7 +50,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
     @Override
     protected void configure(HttpSecurity http) throws Exception {
         http.authorizeRequests()
-                .antMatchers("/login", "/logout", "/register").permitAll()
+                .antMatchers("/login", "/logout", "/register", "/api/**").permitAll()
                 .anyRequest().authenticated()
 
                 .and()
