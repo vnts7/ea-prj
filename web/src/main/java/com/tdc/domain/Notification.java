@@ -20,7 +20,7 @@ public class Notification {
     private String content;
 
     @ManyToOne
-    private User from;
+    private User receiver;
     @ManyToOne
-    private User to;
+    private User target;
 }

@@ -1,4 +1,5 @@
 <%@ taglib uri="http://www.springframework.org/security/tags" prefix="sec" %>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 
 
 <script src="/res/jquery-3.3.1.slim.min.js"></script>
@@ -26,7 +27,12 @@
                 </ul>
                 <ul class="navbar-nav">
                     <li class="nav-item">
-                        <a class="nav-link" href="#">Hello <sec:authentication property="name"/></a>
+                        <a class="nav-link noti-wrap" href="/notification">
+                            Hello <b>${auth.name}</b>
+                            <c:if test="${auth.numNotification>0}">
+                                <span class="noti">${auth.numNotification}</span>
+                            </c:if>
+                        </a>
                     </li>
                     <li class="nav-item">
 
