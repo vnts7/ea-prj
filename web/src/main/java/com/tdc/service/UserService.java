@@ -79,7 +79,16 @@ public class UserService {
         return ur.findById(id).get();
     }
 
-    public void save(User user){
+    public Long save(User user){
         ur.save(user);
+        return user.getId();
     }
+
+    public List<Notification> getNotifications(Long id){
+        User u = ur.findById(id).get();
+        u.setNumNotification(0);
+        ur.save(u);
+        return u.getNotifications();
+    }
+
 }

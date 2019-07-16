@@ -19,7 +19,7 @@ public class RestProfileController {
         return us.findById(id);
     }
 
-    @GetMapping("/user/{username}")
+    @GetMapping("/user/name/{username}")
     public User findByUsername(@PathVariable String username){
         return us.findByUsername(username);
     }
@@ -37,17 +37,17 @@ public class RestProfileController {
 
     @GetMapping("/user/{id}/noti")
     public List<Notification> findAllNoti(@PathVariable Long id){
-        return us.findById(id).getNotifications();
+        return us.getNotifications(id);
     }
 
-    @PostMapping("/user/{id}/like/{likeeId}/liked")
+    @PostMapping("/user/{id}/like/{likeeId}/{liked}")
     public Boolean like(@PathVariable Long id, Long likeeId, Boolean liked){
         return us.like(id, likeeId, liked);
     }
 
     @PostMapping("/user")
-    public void save(@RequestBody User user){
-        us.save(user);
+    public Long save(@RequestBody User user){
+        return us.save(user);
     }
 
 

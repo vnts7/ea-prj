@@ -10,8 +10,6 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
-import java.security.Principal;
-
 @Controller
 public class ProfileController extends BaseController {
 
@@ -44,10 +42,7 @@ public class ProfileController extends BaseController {
 
     @GetMapping("/notification")
     public String viewNotification(Model m) {
-        User u = us.findById(getUser().getId());
-        m.addAttribute("list", u.getNotifications());
-        u.setNumNotification(0);
-        us.save(u);
+        m.addAttribute("list", us.getNotifications(getUser().getId()));
         return "notification";
     }
 }

@@ -1,6 +1,8 @@
 package com.tdc.domain;
 
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import lombok.Data;
 import org.springframework.data.geo.Point;
 
@@ -13,6 +15,7 @@ import java.util.List;
 
 @Data
 @Entity
+@JsonIgnoreProperties(ignoreUnknown = true)
 public class User {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -50,12 +53,15 @@ public class User {
 //    @OneToMany(mappedBy = "user", cascade = CascadeType.ALL)
 //    private List<Photo> photos = new ArrayList<>();
 
+    @JsonIgnore
     @OneToMany(mappedBy = "receiver", cascade = CascadeType.ALL)
     private List<Notification> notifications = new ArrayList<>();
 
+    @JsonIgnore
     @OneToMany(mappedBy = "liker")
     private List<UserLike> likers = new ArrayList<>();
 
+    @JsonIgnore
     @OneToMany(mappedBy = "likee")
     private List<UserLike> likees = new ArrayList<>();
 
