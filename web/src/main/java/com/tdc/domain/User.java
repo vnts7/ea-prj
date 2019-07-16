@@ -43,10 +43,10 @@ public class User {
     private String bio;
     private String contact;
 
-    @OneToMany(mappedBy = "user")
+    @OneToMany(mappedBy = "user", cascade = CascadeType.ALL)
     private List<Photo> photos = new ArrayList<>();
 
-    @OneToMany(mappedBy = "to")
+    @OneToMany(mappedBy = "to", cascade = CascadeType.ALL)
     private List<Notification> notifications = new ArrayList<>();
 
     @OneToMany(mappedBy = "liker")

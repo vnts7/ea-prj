@@ -45,15 +45,24 @@ public class UserService {
         return null;
     }
 
-    public void like(Long id, Long likee){
+    //return true if match
+    public Boolean like(Long id, Long likee, Boolean liked){
         ulr.save(
-                new UserLike(null, ur.findById(id).get(), ur.findById(likee).get(), true)
+                new UserLike(null, ur.findById(id).get(), ur.findById(likee).get(), liked)
         );
+        if(liked){
+            if(ulr.queryCount(likee,id, true)>0)
+                return true;
+        }
+        return false;
     }
 
-    public void dislike(Long id, Long likee){
-        ulr.save(
-                new UserLike(null, ur.findById(id).get(), ur.findById(likee).get(), false)
-        );
+
+    public User findByUsername(String username){
+        return ur.findByUsername(username);
+    }
+
+    public User findById(Long id){
+        return ur.findById(id).get();
     }
 }

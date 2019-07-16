@@ -26,7 +26,7 @@
                 </ul>
                 <ul class="navbar-nav">
                     <li class="nav-item">
-                        <a class="nav-link" href="#">Hello <sec:authentication property="name"/></a>
+                        <a class="nav-link" href="#">Hello <b>${auth.name}</b></a>
                     </li>
                     <li class="nav-item">
 
