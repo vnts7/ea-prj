@@ -88,3 +88,20 @@
 a.btn-primary {
     color: #fff !important;
 }
+
+.noti-wrap{
+    position: relative;
+    padding-right: 30px !important;
+}
+.noti{
+    position: absolute;
+    background: red;
+    border-radius: 100px;
+    padding: 0 7px;
+    color: #fff;
+    right: 0;
+    top: 0;
+    min-width: 25px;
+    height: 25px;
+    text-align: center;
+}

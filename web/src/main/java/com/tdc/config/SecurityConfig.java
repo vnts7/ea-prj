@@ -31,7 +31,8 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
     protected void configure(AuthenticationManagerBuilder auth) throws Exception {
         auth.inMemoryAuthentication()
                 .withUser("admin").password("{noop}admin").roles("USER","ADMIN").and()
-                .withUser("hm").password("{noop}hm").roles("USER");
+                .withUser("hm").password("{noop}hm").roles("USER").and()
+                .withUser("tb").password("{noop}tb").roles("USER");
         //todo: change to jdbcAuthentication after finish register
 //        auth.jdbcAuthentication()
 //                .usersByUsernameQuery("select username, password, 1 from user where username=?")

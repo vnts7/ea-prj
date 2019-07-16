@@ -22,6 +22,7 @@ public class User {
     private String name;
 
     @NotBlank
+    @Column(unique = true)
     private String username;
 
     @NotBlank
@@ -42,11 +43,14 @@ public class User {
 
     private String bio;
     private String contact;
+    private Integer numNotification = 0;
 
-    @OneToMany(mappedBy = "user", cascade = CascadeType.ALL)
-    private List<Photo> photos = new ArrayList<>();
+    private Integer photo;
 
-    @OneToMany(mappedBy = "to", cascade = CascadeType.ALL)
+//    @OneToMany(mappedBy = "user", cascade = CascadeType.ALL)
+//    private List<Photo> photos = new ArrayList<>();
+
+    @OneToMany(mappedBy = "receiver", cascade = CascadeType.ALL)
     private List<Notification> notifications = new ArrayList<>();
 
     @OneToMany(mappedBy = "liker")
@@ -72,14 +76,14 @@ public class User {
         return p.getYears();
     }
 
-    public Long getPhoto()
-    {
-        if(photos.size()>0)return photos.get(0).getId();
-        return 0L;
-    }
-
-    public void addPhoto(Photo p){
-        photos.add(p);
-        p.setUser(this);
-    }
+//    public Long getPhoto()
+//    {
+//        if(photos.size()>0)return photos.get(0).getId();
+//        return 0L;
+//    }
+//
+//    public void addPhoto(Photo p){
+//        photos.add(p);
+//        p.setUser(this);
+//    }
 }

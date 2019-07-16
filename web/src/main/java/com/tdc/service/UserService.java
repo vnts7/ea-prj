@@ -1,7 +1,9 @@
 package com.tdc.service;
 
+import com.tdc.domain.Notification;
 import com.tdc.domain.User;
 import com.tdc.domain.UserLike;
+import com.tdc.repo.NotificationRepo;
 import com.tdc.repo.UserLikeRepo;
 import com.tdc.repo.UserRepo;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -20,6 +22,9 @@ public class UserService {
 
     @Autowired
     private UserLikeRepo ulr;
+
+    @Autowired
+    private NotificationRepo nr;
 
     public List<User> findAllMatch(Long id){
         List<User> r = new ArrayList<>();
@@ -46,17 +51,25 @@ public class UserService {
     }
 
     //return true if match
-    public Boolean like(Long id, Long likee, Boolean liked){
+    public Boolean like(Long id, Long likeeId, Boolean liked){
+        User liker = ur.findById(id).get();
+        User likee = ur.findById(likeeId).get();
         ulr.save(
-                new UserLike(null, ur.findById(id).get(), ur.findById(likee).get(), liked)
+                new UserLike(null, liker, likee, liked)
         );
         if(liked){
-            if(ulr.queryCount(likee,id, true)>0)
-                return true;
+            Boolean match = ulr.queryCount(likeeId,id, true)>0;
+            if(match){
+                //todo: use messaging
+                Notification n = new Notification(null, String.format("You have new match with <b>%s</b>.",liker.getName() ), likee, liker );
+                nr.save(n);
+                likee.setNumNotification(likee.getNumNotification()+1);
+                ur.save(likee);
+            }
+                return match;
         }
         return false;
     }
-
 
     public User findByUsername(String username){
         return ur.findByUsername(username);
@@ -64,5 +77,9 @@ public class UserService {
 
     public User findById(Long id){
         return ur.findById(id).get();
+    }
+
+    public void save(User user){
+        ur.save(user);
     }
 }

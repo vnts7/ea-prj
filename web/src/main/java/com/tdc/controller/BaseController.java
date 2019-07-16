@@ -12,13 +12,15 @@ public class BaseController {
     @Autowired protected UserService us;
     private User user;
     protected User getUser(){
-        if(user!=null)return user;
+//        if(user!=null)return user;
         String un = SecurityContextHolder.getContext().getAuthentication().getName();
+        System.out.println("-------------------" + un);
         if(!un.isEmpty())
         {
             user = us.findByUsername(un);
             user.getPhoto();
         }
+//        System.out.println(user);
         return user;
     }
     @ModelAttribute("auth")
