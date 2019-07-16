@@ -7,6 +7,7 @@ import org.springframework.data.geo.Point;
 import javax.persistence.*;
 import javax.validation.constraints.*;
 import java.time.LocalDate;
+import java.time.Period;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -40,6 +41,7 @@ public class User {
     private Filter filter;
 
     private String bio;
+    private String contact;
 
     @OneToMany(mappedBy = "user")
     private List<Photo> photos = new ArrayList<>();
@@ -63,5 +65,21 @@ public class User {
         this.location = location;
         this.dateOfBirth = dateOfBirth;
         this.gender = gender;
+    }
+
+    public Integer getAge(){
+        Period p = Period.between(dateOfBirth, LocalDate.now());
+        return p.getYears();
+    }
+
+    public Long getPhoto()
+    {
+        if(photos.size()>0)return photos.get(0).getId();
+        return 0L;
+    }
+
+    public void addPhoto(Photo p){
+        photos.add(p);
+        p.setUser(this);
     }
 }
