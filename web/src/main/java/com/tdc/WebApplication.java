@@ -1,6 +1,7 @@
 package com.tdc;
 
 
+import com.tdc.domain.Filter;
 import com.tdc.domain.User;
 import com.tdc.domain.UserLike;
 import com.tdc.repo.UserLikeRepo;
@@ -28,6 +29,7 @@ public class WebApplication {
                 null, LocalDate.of(1986,02,02),0);
         u.setBio("Very handsome");
         u.setPhoto(1);
+        u.setFilter(new Filter(-1, null, 18,55));
         ur.save(u);
 
         User u2 = new User("The beauty", "tb", "123",
