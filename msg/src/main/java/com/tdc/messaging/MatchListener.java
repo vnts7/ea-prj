@@ -17,7 +17,7 @@ public class MatchListener {
 
     @RabbitHandler
     public void save(@Payload Match m) {
-        System.out.println("received: " + m);
+        System.out.println("--------MESSAGING received: " + m);
         try {
             us.pushMatchNotification(m);
 

@@ -18,7 +18,7 @@ import java.util.List;
 public class UserServiceProxy {
     @Autowired
     private RestTemplate rt;
-    private final String restPort = "8181";
+    private final String restPort = "8080";
     private final String restUrl = "http://localhost:" + restPort + "/api/user/";
     private final String byIdUrl = restUrl + "{id}/";
 
