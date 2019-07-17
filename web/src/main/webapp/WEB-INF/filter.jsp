@@ -42,8 +42,8 @@
                 <div class="row">
                     <div class="col-9">
                         <select class="custom-select" name="interestedIn">
-                            <option value="0" ${filter.interestedIn==0?"selected":""}>Women</option>
-                            <option value="1" ${filter.interestedIn==1?"selected":""}>Man</option>
+                            <option value="1" ${filter.interestedIn==1?"selected":""}>Women</option>
+                            <option value="0" ${filter.interestedIn==0?"selected":""}>Man</option>
                             <option value="-1" ${filter.interestedIn==-1?"selected":""}>All</option>
                         </select>
                     </div>

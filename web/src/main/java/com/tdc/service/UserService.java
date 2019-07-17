@@ -1,16 +1,15 @@
 package com.tdc.service;
 
-import com.tdc.domain.Like;
-import com.tdc.domain.Notification;
-import com.tdc.domain.User;
-import com.tdc.domain.UserLike;
+import com.tdc.domain.*;
 import com.tdc.repo.NotificationRepo;
 import com.tdc.repo.UserLikeRepo;
 import com.tdc.repo.UserRepo;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import javax.persistence.*;
 import javax.transaction.Transactional;
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -18,6 +17,10 @@ import java.util.List;
 @Service
 @Transactional
 public class UserService {
+
+    @PersistenceContext
+    private EntityManager em;
+
     @Autowired
     private UserRepo ur;
 
@@ -46,9 +49,33 @@ public class UserService {
     }
 
     public User next(Long id){
-        List<User> l = ur.next(id);
-        if(l.size()>0)return l.get(0);
-        return null;
+        User u = findById(id);
+        Filter f= u.getFilter();
+        LocalDate dateFrom = LocalDate.now().minusYears(f.getAgeTo());
+        LocalDate dateTo = LocalDate.now().minusYears(f.getAgeFrom());
+
+        Query q = em.createNativeQuery(
+                "select * from User u where u.id<>:id"
+                        +" and u.date_Of_Birth>:dateFrom"
+                        +" and u.date_Of_Birth<:dateTo"
+                        + (f.getInterestedIn()==-1?"":" and u.gender=:interestedIn")
+                        + " and u.id not in (select likee_id from user_like where liker_id=:id)"
+                , User.class)
+                .setParameter("id", id)
+
+                .setParameter("dateFrom", dateFrom)
+                .setParameter("dateTo", dateTo)
+
+//                .setFirstResult(0)
+                .setMaxResults(1);
+        if(f.getInterestedIn()!=-1)
+            q.setParameter("interestedIn", f.getInterestedIn());
+        List<User> l = q.getResultList();
+        if(l==null || l.size()==0)return null;
+        return l.get(0);
+//        List<User> l = ur.next(id);
+//        if(l.size()>0)return l.get(0);
+//        return null;
     }
 
     //return true if match
