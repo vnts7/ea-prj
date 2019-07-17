@@ -1,7 +1,9 @@
 package com.tdc.rest;
 
+import com.tdc.domain.Like;
 import com.tdc.domain.Notification;
 import com.tdc.domain.User;
+import com.tdc.domain.UserLike;
 import com.tdc.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
@@ -40,9 +42,9 @@ public class RestProfileController {
         return us.getNotifications(id);
     }
 
-    @PostMapping("/user/{id}/like/{likeeId}/{liked}")
-    public Boolean like(@PathVariable Long id, Long likeeId, Boolean liked){
-        return us.like(id, likeeId, liked);
+    @PostMapping("/user/like")
+    public Boolean like(@RequestBody Like like){
+        return us.like(like);
     }
 
     @PostMapping("/user")

@@ -15,6 +15,6 @@ import javax.persistence.Embeddable;
 public class Filter {
     private Integer interestedIn;//-1 all, 0: male, 1: female
     private Integer radius;//km
-    private Integer ageFrom;
-    private Integer ageTo;
+    private Integer ageFrom = 18;
+    private Integer ageTo = 100;
 }

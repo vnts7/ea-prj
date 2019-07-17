@@ -68,6 +68,10 @@ public class User {
     public User() {
     }
 
+    public User(Long id) {
+        this.id = id;
+    }
+
     public User(@NotBlank String name, @NotBlank String username, @NotBlank String password, Point location, @Past @NotNull LocalDate dateOfBirth, @NotNull Integer gender) {
         this.name = name;
         this.username = username;
@@ -77,6 +81,7 @@ public class User {
         this.gender = gender;
     }
 
+    @JsonIgnore
     public Integer getAge(){
         Period p = Period.between(dateOfBirth, LocalDate.now());
         return p.getYears();

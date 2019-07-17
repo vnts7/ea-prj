@@ -1,5 +1,6 @@
 package com.tdc.service;
 
+import com.tdc.domain.Like;
 import com.tdc.domain.Notification;
 import com.tdc.domain.User;
 import com.tdc.domain.UserLike;
@@ -34,9 +35,9 @@ public class UserServiceProxy {
     }
 
     //return true if match
-    public Boolean like(Long id, Long likeeId, Boolean liked) {
-        String url = byIdUrl + "like/{likeeId}/{liked}";
-        return rt.postForObject(url, null, Boolean.class, id, likeeId, liked);
+    public Boolean like(Like ul) {
+        String url = restUrl + "like";
+        return  rt.postForObject(url, ul, Boolean.class);
     }
 
     public User findByUsername(String username) {

@@ -1,8 +1,11 @@
 package com.tdc.controller;
 
 
+import com.tdc.domain.Filter;
+import com.tdc.domain.Like;
 import com.tdc.domain.User;
 
+import com.tdc.domain.UserLike;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.ui.ModelMap;
@@ -27,7 +30,7 @@ public class ProfileController extends BaseController {
 
     @PostMapping("/find")
     public String postLike(Integer action, Long likee, RedirectAttributes ra) {
-        if (us.like(getUser().getId(), likee, action == 1)) {
+        if (us.like(new Like(getUser().getId(), likee, action == 1))) {
             ra.addFlashAttribute("match", likee);
         }
         return "redirect:/find";
@@ -44,5 +47,18 @@ public class ProfileController extends BaseController {
     public String viewNotification(Model m) {
         m.addAttribute("list", us.getNotifications(getUser().getId()));
         return "notification";
+    }
+    @GetMapping("/filter")
+    public String getFilter(Model m) {
+        m.addAttribute("filter", getUser().getFilter());
+        return "filter";
+    }
+
+    @PostMapping("/filter")
+    public String postFilter(Filter filter) {
+        User u = getUser();
+        u.setFilter(filter);
+        us.save(u);
+        return "redirect:/filter";
     }
 }

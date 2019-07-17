@@ -1,5 +1,6 @@
 package com.tdc.service;
 
+import com.tdc.domain.Like;
 import com.tdc.domain.Notification;
 import com.tdc.domain.User;
 import com.tdc.domain.UserLike;
@@ -51,14 +52,17 @@ public class UserService {
     }
 
     //return true if match
-    public Boolean like(Long id, Long likeeId, Boolean liked){
-        User liker = ur.findById(id).get();
+    public Boolean like(Like l){
+        Long likeeId =l.likee;
+        Long likerId = l.liker;
+        Boolean liked = l.liked;
+        User liker = ur.findById(likerId).get();
         User likee = ur.findById(likeeId).get();
         ulr.save(
                 new UserLike(null, liker, likee, liked)
         );
         if(liked){
-            Boolean match = ulr.queryCount(likeeId,id, true)>0;
+            Boolean match = ulr.queryCount(likeeId, likerId, true)>0;
             if(match){
                 //todo: use messaging
                 Notification n = new Notification(null, String.format("You have new match with <b>%s</b>.",liker.getName() ), likee, liker );
