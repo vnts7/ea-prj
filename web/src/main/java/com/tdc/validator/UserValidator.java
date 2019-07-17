@@ -1,7 +1,7 @@
 package com.tdc.validator;
 
 import com.tdc.domain.User;
-import com.tdc.service.UserService;
+import com.tdc.service.UserServiceProxy;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 import org.springframework.validation.Errors;
@@ -11,7 +11,7 @@ import org.springframework.validation.Validator;
 @Component
 public class UserValidator implements Validator {
     @Autowired
-    private UserService userService;
+    private UserServiceProxy userService;
 
     @Override
     public boolean supports(Class<?> aClass) {

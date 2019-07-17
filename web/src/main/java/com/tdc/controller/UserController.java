@@ -1,7 +1,7 @@
 package com.tdc.controller;
 
 import com.tdc.domain.User;
-import com.tdc.service.UserService;
+import com.tdc.service.UserServiceProxy;
 import com.tdc.validator.UserValidator;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
@@ -27,7 +27,7 @@ public class UserController {
 
 
     @Autowired
-    private UserService userService;
+    private UserServiceProxy us;
 
     private UserValidator userValidator;
 
@@ -59,7 +59,8 @@ public class UserController {
         }
 
         user.setPassword(new BCryptPasswordEncoder().encode(user.getPassword()));
-        userService.save(user);
+        user.setPasswordConfirm("");
+        us.save(user);
 
         return "redirect:/login";
     }

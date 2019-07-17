@@ -1,7 +1,6 @@
 package com.tdc.controller;
 
 import com.tdc.domain.User;
-import com.tdc.service.UserService;
 import com.tdc.service.UserServiceProxy;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Scope;
