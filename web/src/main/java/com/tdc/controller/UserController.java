@@ -3,6 +3,7 @@ package com.tdc.controller;
 import com.tdc.domain.User;
 import com.tdc.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -34,32 +35,28 @@ public class UserController {
     }
 
     @PostMapping("/register")
-    public String registration(@ModelAttribute("userModel") User user, BindingResult bindingResult, @RequestParam("photo") MultipartFile[] files, RedirectAttributes redirectAttributes) {
+    public String registration(@ModelAttribute("userModel") User user, BindingResult bindingResult, @RequestParam("photo") MultipartFile file, RedirectAttributes redirectAttributes) {
 //        userValidator.validate(user, bindingResult);
         Long newId = ThreadLocalRandom.current().nextLong(100000);
-        Long picId =Long.parseLong(newId + "" + 0);
-//        StringBuilder fileNames = new StringBuilder();
-        if(files.length == 0) {
+        if (file.isEmpty()) {
             redirectAttributes.addFlashAttribute("msg", "Please select a file to upload");
             return "redirect:/register";
         }
-        for (MultipartFile file : files) {
-//            String extension = file.getContentType().split("/")[1];
-            picId++;
-            Path fileNameAndPath = Paths.get(uploadDirectory, picId+".jpg");
-            try {
-                Files.write(fileNameAndPath, file.getBytes());
-                user.setPhoto(newId);
-            } catch (IOException e) {
-                e.printStackTrace();
-            }
+        Path fileNameAndPath = Paths.get(uploadDirectory, newId + ".jpg");
+        try {
+            Files.write(fileNameAndPath, file.getBytes());
+            user.setPhoto(newId);
+        } catch (IOException e) {
+            e.printStackTrace();
         }
+
 //        if (bindingResult.hasErrors()) {
 //            System.out.println("HAS ERRORS");
 //            return "/";
 //        }
-        user.setId(newId);
 
+
+        user.setPassword(new BCryptPasswordEncoder().encode(user.getPassword()));
         userService.save(user);
 //
 //        loginService.login(user.getUsername(), user.getPassword());
