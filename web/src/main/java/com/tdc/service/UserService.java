@@ -4,7 +4,10 @@ import com.tdc.domain.*;
 import com.tdc.repo.NotificationRepo;
 import com.tdc.repo.UserLikeRepo;
 import com.tdc.repo.UserRepo;
+import org.springframework.amqp.core.Queue;
+import org.springframework.amqp.rabbit.core.RabbitTemplate;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.annotation.Bean;
 import org.springframework.stereotype.Service;
 
 import javax.persistence.*;
@@ -20,6 +23,9 @@ public class UserService {
 
     @PersistenceContext
     private EntityManager em;
+
+    @Autowired
+    private RabbitTemplate template;
 
     @Autowired
     private UserRepo ur;
@@ -92,8 +98,8 @@ public class UserService {
             Boolean match = ulr.queryCount(likeeId, likerId, true)>0;
             if(match){
                 //todo: use messaging
-                Notification n = new Notification(null, String.format("You have new match with <b>%s</b>.",liker.getName() ), likee, liker );
-                nr.save(n);
+//                template.convertAndSend("match", new Match(likeeId, likeeId));
+                pushMatchNotification(new Match(likeeId, likeeId));
                 likee.setNumNotification(likee.getNumNotification()+1);
                 ur.save(likee);
             }
@@ -122,4 +128,10 @@ public class UserService {
         return u.getNotifications();
     }
 
+    public void pushMatchNotification(Match m){
+        User liker = ur.findById(m.getTarget()).get();
+        User likee = ur.findById(m.getReceiver()).get();
+        Notification n = new Notification(null, String.format("You have new match with <b>%s</b>.",liker.getName() ), likee, liker );
+        nr.save(n);
+    }
 }
