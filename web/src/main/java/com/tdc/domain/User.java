@@ -5,6 +5,7 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import lombok.Data;
 import org.springframework.data.geo.Point;
+import org.springframework.format.annotation.DateTimeFormat;
 
 import javax.persistence.*;
 import javax.validation.constraints.*;
@@ -36,6 +37,7 @@ public class User {
 
     @Past
     @NotNull
+    @DateTimeFormat(pattern = "dd/MM/yyyy")
     private LocalDate dateOfBirth;
 
     @NotNull
@@ -48,7 +50,9 @@ public class User {
     private String contact;
     private Integer numNotification = 0;
 
-    private Integer photo;
+    private String passwordConfirm;
+
+    private Long photo;
 
 //    @OneToMany(mappedBy = "user", cascade = CascadeType.ALL)
 //    private List<Photo> photos = new ArrayList<>();
