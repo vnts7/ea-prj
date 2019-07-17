@@ -57,6 +57,12 @@ public class UserService {
     public User next(Long id){
         User u = findById(id);
         Filter f= u.getFilter();
+        if(f==null){
+            f = new Filter(u.getGender()==0?1:0, 20, u.getAge()-5, u.getAge()+5);
+            u.setFilter(f);
+            ur.save(u);
+        }
+
         LocalDate dateFrom = LocalDate.now().minusYears(f.getAgeTo());
         LocalDate dateTo = LocalDate.now().minusYears(f.getAgeFrom());
 

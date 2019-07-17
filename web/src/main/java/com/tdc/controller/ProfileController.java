@@ -17,9 +17,6 @@ public class ProfileController extends BaseController {
     @GetMapping("/find")
     public String find(Model m, ModelMap mm) {
         User u = getUser();
-        if(u.getFilter()==null){
-            return "redirect:/filter";
-        }
         if (mm.containsAttribute("match")) {
             Long match = (Long) mm.get("match");
             m.addAttribute("m_user", us.findById(match));

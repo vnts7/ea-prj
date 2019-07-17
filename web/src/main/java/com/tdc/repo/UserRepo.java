@@ -13,14 +13,12 @@ public interface UserRepo extends JpaRepository<User, Long> {
 
     User findByUsername(String username);
 
-    //    @Query("select distinct u from User u join u.likers l where l.liker.id=:id and l.liked = true")
-    @Query(value = "select * from User u where u.id<>:id and u.id in (select likee_id from user_like where liker_id=:id and liked=1)"
-            , nativeQuery = true)
+    @Query("select distinct u from User u join u.likees l where l.liker.id=:id and l.liked = true")
+//    @Query(value = "select * from User u where u.id<>:id and u.id in (select likee_id from user_like where liker_id=:id and liked=1)", nativeQuery = true)
     List<User> findAllILike(@Param("id") Long id);
 
-    //    @Query("select distinct u from User u join u.likees l where l.likee.id=:id and l.liked = true")
-    @Query(value = "select * from User u where u.id<>:id and u.id in (select liker_id from user_like where likee_id=:id and liked=1)"
-            , nativeQuery = true)
+    @Query("select distinct u from User u join u.likers l where l.likee.id=:id and l.liked = true")
+//    @Query(value = "select * from User u where u.id<>:id and u.id in (select liker_id from user_like where likee_id=:id and liked=1)", nativeQuery = true)
     List<User> findAllLikeMe(@Param("id") Long id);
 
     //    @Query("select distinct u from User u join u.likers l where u.id <> :id and l.liker.id<>:id")
