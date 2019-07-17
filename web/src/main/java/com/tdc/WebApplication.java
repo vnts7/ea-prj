@@ -10,6 +10,7 @@ import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.annotation.Bean;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.web.client.RestTemplate;
 
 import java.time.LocalDate;
@@ -33,6 +34,7 @@ public class WebApplication {
         u.setBio("Very handsome");
 
         u.setPhoto(1);
+        u.setFilter(new Filter(-1,null,18,35));
         ur.save(u);
 
         User u2 = new User("The beauty", "tb", pass,
