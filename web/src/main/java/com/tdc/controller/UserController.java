@@ -2,6 +2,7 @@ package com.tdc.controller;
 
 import com.tdc.domain.User;
 import com.tdc.service.UserService;
+import com.tdc.validator.UserValidator;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Controller;
@@ -28,6 +29,8 @@ public class UserController {
     @Autowired
     private UserService userService;
 
+    private UserValidator userValidator;
+
     @GetMapping("/register")
     public String registration(Model model) {
         model.addAttribute("userModel", new User());
@@ -37,6 +40,11 @@ public class UserController {
     @PostMapping("/register")
     public String registration(@ModelAttribute("userModel") User user, BindingResult bindingResult, @RequestParam("photo") MultipartFile file, RedirectAttributes redirectAttributes) {
 //        userValidator.validate(user, bindingResult);
+//        if (bindingResult.hasErrors()) {
+//            System.out.println("HAS ERRORS");
+//            return "/";
+//        }
+//        System.out.println("NO ERRORS");
         Integer newId = ThreadLocalRandom.current().nextInt(100000);
         if (file.isEmpty()) {
             redirectAttributes.addFlashAttribute("msg", "Please select a file to upload");
@@ -50,17 +58,9 @@ public class UserController {
             e.printStackTrace();
         }
 
-//        if (bindingResult.hasErrors()) {
-//            System.out.println("HAS ERRORS");
-//            return "/";
-//        }
-
-
         user.setPassword(new BCryptPasswordEncoder().encode(user.getPassword()));
         userService.save(user);
-//
-//        loginService.login(user.getUsername(), user.getPassword());
-//
-        return "redirect:/";
+
+        return "redirect:/login";
     }
 }
