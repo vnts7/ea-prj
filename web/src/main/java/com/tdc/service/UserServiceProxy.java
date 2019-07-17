@@ -4,6 +4,7 @@ import com.tdc.domain.Notification;
 import com.tdc.domain.User;
 import com.tdc.domain.UserLike;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.annotation.Bean;
 import org.springframework.core.ParameterizedTypeReference;
 import org.springframework.http.HttpMethod;
 import org.springframework.stereotype.Service;
@@ -15,6 +16,10 @@ import java.util.List;
 
 @Service
 public class UserServiceProxy {
+    @Bean
+    public RestTemplate restTemplate() {
+        return new RestTemplate();
+    }
     @Autowired
     private RestTemplate rt;
     private final String restPort = "8080";

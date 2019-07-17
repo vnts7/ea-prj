@@ -5,6 +5,7 @@
 <script src="/res/jquery-3.3.1.slim.min.js"></script>
 <script src="/res/popper.min.js"></script>
 <script src="/res/bootstrap.min.js"></script>
+<link rel="stylesheet" href="/res/index.css">
 <%--<div class="container">--%>
     <nav class="navbar navbar-dark bg-dark navbar-expand m-navbar">
         <div class="container">
@@ -34,9 +35,10 @@
                             </c:if>
                         </a>
                     </li>
+
                     <li class="nav-item">
 
-                        <a class="nav-link" href="/logout">[Logout]</a>
+                        <a class="nav-link" href="/login">[Login]</a>
                     </li>
                 </ul>
             </div>

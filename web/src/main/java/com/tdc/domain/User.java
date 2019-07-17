@@ -1,6 +1,4 @@
 package com.tdc.domain;
-
-
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import lombok.Data;
@@ -93,3 +91,4 @@ public class User {
 //        p.setUser(this);
 //    }
 }
+

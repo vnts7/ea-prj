@@ -5,27 +5,35 @@ import com.tdc.domain.User;
 import com.tdc.domain.UserLike;
 import com.tdc.repo.UserLikeRepo;
 import com.tdc.repo.UserRepo;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.ApplicationContext;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
+import org.springframework.security.crypto.password.PasswordEncoder;
 
 import java.time.LocalDate;
 
 @SpringBootApplication
 public class WebApplication {
 
+
+
     public static void main(String[] args) {
 
         ApplicationContext app =SpringApplication.run(WebApplication.class, args);
         UserRepo ur = app.getBean(UserRepo.class);
         UserLikeRepo ulr = app.getBean(UserLikeRepo.class);
-        User u = new User("Handsome Mohamed", "hm", "123",
+
+       // System.out.println(" Password encryted: "+);
+
+        User u = new User("Handsome Mohamed", "hm", new BCryptPasswordEncoder().encode("FuckingPassword"),
                 null, LocalDate.of(1986,01,02),0);
         u.setBio("Very handsome");
         u.setPhoto(1);
         ur.save(u);
 
-        User u2 = new User("The beauty", "tb", "123",
+        User u2 = new User("The beauty", "tb", new BCryptPasswordEncoder().encode("FuckingPassword"),
                 null, LocalDate.of(1990,02,02),1);
         u2.setBio("Very beautiful");
         u2.setContact("Call me at 641 888 999");

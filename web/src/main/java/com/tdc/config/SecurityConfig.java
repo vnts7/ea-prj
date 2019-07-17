@@ -19,10 +19,7 @@ import javax.sql.DataSource;
 @EnableGlobalMethodSecurity(securedEnabled = true, prePostEnabled = true)
 public class SecurityConfig extends WebSecurityConfigurerAdapter {
 
-//    @Bean
-//    public PasswordEncoder passwordEncoder() {
-//        return new BCryptPasswordEncoder();
-//    }
+
 
     @Autowired
     private DataSource dataSource;
@@ -40,6 +37,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 //                .dataSource(dataSource)
 //                .passwordEncoder(passwordEncoder());
 
+
     }
 
     @Override
@@ -49,22 +47,23 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 
     @Override
     protected void configure(HttpSecurity http) throws Exception {
-        http.authorizeRequests()
-                .antMatchers("/login", "/logout", "/register", "/api/**").permitAll()
-                .anyRequest().authenticated()
-
-                .and()
-                .formLogin() //enable form login instead of basic login
-//                .loginPage("/login")
-//                .failureUrl("/login?error=true")
-//                .usernameParameter("username")
-//                .passwordParameter("password")
-//                .defaultSuccessUrl("/")
-                .and()
-                .logout()
-//                .logoutUrl("/logout")
-//                .logoutSuccessUrl("/login")
-        ;
+//        http.authorizeRequests()
+//                .antMatchers("/login", "/logout", "/register", "/api/**").permitAll()
+//                .anyRequest().authenticated()
+//
+//                .and()
+//                .formLogin() //enable form login instead of basic login
+////                .loginPage("/login")
+////                .failureUrl("/login?error=true")
+////                .usernameParameter("username")
+////                .passwordParameter("password")
+////                .defaultSuccessUrl("/")
+//                .and()
+//                .logout()
+////                .logoutUrl("/logout")
+////                .logoutSuccessUrl("/login")
+//        ;
+        http.httpBasic().disable();
     }
 
 }

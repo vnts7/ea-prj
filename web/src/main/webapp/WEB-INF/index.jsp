@@ -3,8 +3,9 @@
 <%@ taglib prefix="sec" uri="http://www.springframework.org/security/tags" %>
 <%@taglib prefix="t" tagdir="/WEB-INF/tags" %>
 
+
 <t:master>
     <jsp:body>
-        <h1>Index page</h1>
+
     </jsp:body>
 </t:master>
