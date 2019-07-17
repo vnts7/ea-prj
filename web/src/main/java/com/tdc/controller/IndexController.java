@@ -13,6 +13,6 @@ public class IndexController {
     @GetMapping("")
     public String index(){
         ur.findAll();
-        return "index";
+        return "redirect:/find";
     }
 }

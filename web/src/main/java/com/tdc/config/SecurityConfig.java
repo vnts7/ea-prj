@@ -1,6 +1,5 @@
 package com.tdc.config;
 
-import org.springframework.amqp.core.Queue;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -19,30 +18,27 @@ import javax.sql.DataSource;
 @EnableWebSecurity
 @EnableGlobalMethodSecurity(securedEnabled = true, prePostEnabled = true)
 public class SecurityConfig extends WebSecurityConfigurerAdapter {
+
     @Bean
-    public Queue match() {
-        return new Queue("match");
+    public PasswordEncoder passwordEncoder() {
+        return new BCryptPasswordEncoder();
     }
-//    @Bean
-//    public PasswordEncoder passwordEncoder() {
-//        return new BCryptPasswordEncoder();
-//    }
 
     @Autowired
     private DataSource dataSource;
 
     @Override
     protected void configure(AuthenticationManagerBuilder auth) throws Exception {
-        auth.inMemoryAuthentication()
-                .withUser("admin").password("{noop}admin").roles("USER","ADMIN").and()
-                .withUser("hm").password("{noop}hm").roles("USER").and()
-                .withUser("tb").password("{noop}tb").roles("USER");
+//        auth.inMemoryAuthentication()
+//                .withUser("admin").password("{noop}admin").roles("USER","ADMIN").and()
+//                .withUser("hm").password("{noop}hm").roles("USER").and()
+//                .withUser("tb").password("{noop}tb").roles("USER");
         //todo: change to jdbcAuthentication after finish register
-//        auth.jdbcAuthentication()
-//                .usersByUsernameQuery("select username, password, 1 from user where username=?")
-//                .authoritiesByUsernameQuery("select u.username, r.name from user u inner join user_authority ur on(u.id=ur.user_id) inner join authority r on(ur.authority_id=r.id) where u.username=?")
-//                .dataSource(dataSource)
-//                .passwordEncoder(passwordEncoder());
+        auth.jdbcAuthentication()
+                .usersByUsernameQuery("select username, password, 1 from user where username=?")
+                .authoritiesByUsernameQuery("select ?, 'USER' ")
+                .dataSource(dataSource)
+                .passwordEncoder(passwordEncoder());
 
     }
 

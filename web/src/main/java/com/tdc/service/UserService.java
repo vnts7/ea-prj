@@ -98,8 +98,8 @@ public class UserService {
             Boolean match = ulr.queryCount(likeeId, likerId, true)>0;
             if(match){
                 //todo: use messaging
-//                template.convertAndSend("match", new Match(likeeId, likeeId));
-                pushMatchNotification(new Match(likeeId, likeeId));
+                template.convertAndSend("match", new Match(likeeId, likerId));
+//                pushMatchNotification(new Match(likeeId, likerId));
                 likee.setNumNotification(likee.getNumNotification()+1);
                 ur.save(likee);
             }

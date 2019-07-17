@@ -14,4 +14,12 @@ import java.io.Serializable;
 public class Match implements Serializable {
     private Long receiver;
     private Long target;
+
+    @Override
+    public String toString() {
+        return "Match{" +
+                "receiver=" + receiver +
+                ", target=" + target +
+                '}';
+    }
 }

@@ -4,8 +4,6 @@ package com.tdc.controller;
 import com.tdc.domain.Filter;
 import com.tdc.domain.Like;
 import com.tdc.domain.User;
-
-import com.tdc.domain.UserLike;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.ui.ModelMap;
@@ -18,12 +16,15 @@ public class ProfileController extends BaseController {
 
     @GetMapping("/find")
     public String find(Model m, ModelMap mm) {
-
+        User u = getUser();
+        if(u.getFilter()==null){
+            return "redirect:/filter";
+        }
         if (mm.containsAttribute("match")) {
             Long match = (Long) mm.get("match");
             m.addAttribute("m_user", us.findById(match));
         }
-        m.addAttribute("user", us.next(getUser().getId()));
+        m.addAttribute("user", us.next(u.getId()));
         return "find";
     }
 
