@@ -32,6 +32,7 @@ public class WebApplication {
         User u = new User("Handsome Mohamed", "hm", pass,
                 null, LocalDate.of(1986,01,02),0);
         u.setBio("Very handsome");
+
         u.setPhoto(1);
         u.setFilter(new Filter(-1,null,18,35));
         ur.save(u);
