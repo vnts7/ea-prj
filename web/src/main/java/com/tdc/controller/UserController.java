@@ -37,7 +37,7 @@ public class UserController {
     @PostMapping("/register")
     public String registration(@ModelAttribute("userModel") User user, BindingResult bindingResult, @RequestParam("photo") MultipartFile file, RedirectAttributes redirectAttributes) {
 //        userValidator.validate(user, bindingResult);
-        Long newId = ThreadLocalRandom.current().nextLong(100000);
+        Integer newId = ThreadLocalRandom.current().nextInt(100000);
         if (file.isEmpty()) {
             redirectAttributes.addFlashAttribute("msg", "Please select a file to upload");
             return "redirect:/register";

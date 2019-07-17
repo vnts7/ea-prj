@@ -52,7 +52,7 @@ public class User {
 
     private String passwordConfirm;
 
-    private Long photo;
+    private Integer photo;
 
 //    @OneToMany(mappedBy = "user", cascade = CascadeType.ALL)
 //    private List<Photo> photos = new ArrayList<>();

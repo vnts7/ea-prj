@@ -29,7 +29,7 @@ public class WebApplication {
                 null, LocalDate.of(1986,02,02),0);
         u.setBio("Very handsome");
 
-        u.setPhoto(1L);
+        u.setPhoto(1);
         u.setFilter(new Filter(-1, null, 18,55));
         ur.save(u);
 
@@ -37,7 +37,7 @@ public class WebApplication {
                 null, LocalDate.of(1990,02,02),1);
         u2.setBio("Very beautiful");
         u2.setContact("Call me at 641 888 999");
-        u2.setPhoto(2L);
+        u2.setPhoto(2);
         ur.save(u2);
 
         UserLike ul = new UserLike(null, u2,u, true);
@@ -46,7 +46,7 @@ public class WebApplication {
                 null, LocalDate.of(1990,02,02),1);
         u3.setBio("Very beautiful");
         u3.setContact("Call me at 641 888 999");
-        u3.setPhoto(3L);
+        u3.setPhoto(3);
         ur.save(u3);
 
         ulr.save(ul);
